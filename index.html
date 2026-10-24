@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#111827" />
+    <title>Фабрика Кода / Code Factory</title>
+    <script type="module" crossorigin src="/code-factory-play/assets/index-4eotyPcd.js"></script>
+    <link rel="stylesheet" crossorigin href="/code-factory-play/assets/index-WDrNpd2q.css">
+  </head>
+  <body>
+    <main id="app">
+      <section class="mission-header">
+        <div class="mission-heading">
+          <p id="mission-step" class="eyebrow"></p>
+          <h1 id="mission-title">Code Factory</h1>
+          <p id="mission-objective" class="mission-objective"></p>
+          <p id="mission-hint" class="mission-hint" hidden></p>
+        </div>
+        <button id="info-button" class="icon-button" type="button" aria-label="Открыть информацию">ⓘ</button>
+      </section>
+
+      <section class="workspace-card" aria-label="Рабочее поле программы">
+        <div id="blocklyDiv"></div>
+      </section>
+
+      <section class="actions" aria-label="Управление программой">
+        <button id="run-button" class="primary-button" type="button">Запустить</button>
+        <button id="reset-button" class="secondary-button" type="button">Сбросить</button>
+        <button id="next-button" class="secondary-button" type="button" disabled>Следующая миссия</button>
+      </section>
+
+      <section class="result-grid">
+        <article class="panel">
+          <h2>Результат</h2>
+          <pre id="result-output" aria-live="polite">(ещё не запускалось)</pre>
+        </article>
+
+        <article class="panel">
+          <h2>Python</h2>
+          <pre id="python-output"><code># Соберите программу и нажмите «Запустить»</code></pre>
+        </article>
+      </section>
+
+      <section id="mission-status" class="status-panel neutral" aria-live="polite">
+        Соберите программу и запустите её.
+      </section>
+    </main>
+
+    <div id="info-modal" class="modal" hidden>
+      <div class="modal-backdrop" data-close-modal="info"></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="info-title">
+        <div class="modal-header">
+          <h2 id="info-title">Информация</h2>
+          <button class="icon-button" type="button" data-close-modal="info" aria-label="Закрыть">×</button>
+        </div>
+        <div id="info-content" class="info-grid"></div>
+      </section>
+    </div>
+
+    <div id="tutorial-modal" class="modal" hidden>
+      <div class="modal-backdrop"></div>
+      <section class="modal-card tutorial-card" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
+        <div class="tutorial-visual" aria-hidden="true">
+          <span class="mini-block statement">print(</span>
+          <span class="mini-block value">"Привет"</span>
+          <span class="mini-block statement">)</span>
+        </div>
+        <h2 id="tutorial-title">Первые три элемента</h2>
+        <ol class="tutorial-steps">
+          <li><strong>print()</strong> — команда, которая показывает результат.</li>
+          <li><strong>str</strong> — текст. В коде текст записывается в кавычках: <code>"Привет"</code>.</li>
+          <li><strong>int</strong> — целое число. В коде оно записывается без кавычек: <code>3</code>.</li>
+        </ol>
+        <p>Соедините значение с <code>print()</code>, нажмите «Запустить» и смотрите, что получилось. Подсказки всегда доступны через ⓘ.</p>
+        <button id="tutorial-start" class="primary-button" type="button">Понятно, начать</button>
+      </section>
+    </div>
+
+  </body>
+</html>
