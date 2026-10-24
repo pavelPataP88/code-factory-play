@@ -3,47 +3,157 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#111827" />
+    <meta name="theme-color" content="#08111d" />
     <title>Фабрика Кода / Code Factory</title>
-    <script type="module" crossorigin src="/code-factory-play/assets/index-4eotyPcd.js"></script>
-    <link rel="stylesheet" crossorigin href="/code-factory-play/assets/index-WDrNpd2q.css">
+    <script type="module" crossorigin src="/code-factory-play/assets/index-CxmQ56ZX.js"></script>
+    <link rel="stylesheet" crossorigin href="/code-factory-play/assets/index-C6e5u5N9.css">
   </head>
   <body>
-    <main id="app">
-      <section class="mission-header">
-        <div class="mission-heading">
+    <main id="app" class="game-shell">
+      <header class="top-hud">
+        <div class="brand">
+          <span class="brand-mark">CF</span>
+          <div>
+            <p class="eyebrow">CODE FACTORY // БАЗА 01</p>
+            <h1>Фабрика Кода</h1>
+          </div>
+        </div>
+
+        <div class="hud-stats">
+          <div class="hud-chip">
+            <span>Энергия</span>
+            <strong id="energy-value">0</strong>
+          </div>
+          <div class="hud-chip">
+            <span>Сектор</span>
+            <strong>01</strong>
+          </div>
+          <button id="info-button" class="icon-button" type="button" aria-label="Открыть справку">ⓘ</button>
+        </div>
+      </header>
+
+      <section class="mission-strip">
+        <div>
           <p id="mission-step" class="eyebrow"></p>
-          <h1 id="mission-title">Code Factory</h1>
+          <h2 id="mission-title">Загрузка...</h2>
           <p id="mission-objective" class="mission-objective"></p>
           <p id="mission-hint" class="mission-hint" hidden></p>
         </div>
-        <button id="info-button" class="icon-button" type="button" aria-label="Открыть информацию">ⓘ</button>
+        <div id="mission-progress" class="mission-progress" aria-label="Прогресс миссий"></div>
       </section>
 
-      <section class="workspace-card" aria-label="Рабочее поле программы">
-        <div id="blocklyDiv"></div>
+      <section id="factory-scene" class="factory-scene" aria-label="Игровая сцена фабрики">
+        <div class="scene-glow"></div>
+        <div class="factory-grid"></div>
+
+        <div class="pipe pipe-left"></div>
+        <div class="pipe pipe-right"></div>
+
+        <div class="scene-sign">
+          <span>BASE 01</span>
+          <strong id="scene-status">АВАРИЙНЫЙ РЕЖИМ</strong>
+        </div>
+
+        <div class="terminal-machine">
+          <div class="terminal-lights">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="terminal-screen">
+            <div class="terminal-caption">SYSTEM OUTPUT</div>
+            <pre id="scene-terminal-output">...</pre>
+            <div id="terminal-caret" class="terminal-caret"></div>
+          </div>
+          <div class="terminal-base"></div>
+        </div>
+
+        <div class="robot-zone">
+          <div id="factory-robot" class="factory-robot">
+            <div class="robot-antenna"><i></i></div>
+            <div class="robot-head">
+              <span class="robot-eye left"></span>
+              <span class="robot-eye right"></span>
+            </div>
+            <div class="robot-neck"></div>
+            <div class="robot-body">
+              <div class="robot-core"></div>
+              <span class="robot-label">B-01</span>
+            </div>
+            <div class="robot-arm arm-left"></div>
+            <div class="robot-arm arm-right"></div>
+            <div class="robot-wheel left"></div>
+            <div class="robot-wheel right"></div>
+          </div>
+          <div id="robot-message" class="robot-message">...</div>
+        </div>
+
+        <div class="conveyor-zone">
+          <div class="conveyor-label">ЛИНИЯ A</div>
+          <div id="conveyor-belt" class="conveyor-belt">
+            <div class="belt-stripes"></div>
+            <div class="crate crate-1"><span>1</span></div>
+            <div class="crate crate-2"><span>2</span></div>
+            <div class="crate crate-3"><span>3</span></div>
+          </div>
+          <div class="conveyor-legs"><span></span><span></span></div>
+        </div>
+
+        <div id="sector-door" class="sector-door">
+          <div class="door-panel left"></div>
+          <div class="door-panel right"></div>
+          <div class="door-center">
+            <span class="door-lock">◆</span>
+            <strong>07</strong>
+            <small>СЕКТОР</small>
+          </div>
+        </div>
+
+        <div id="reward-banner" class="reward-banner" hidden>
+          <span>МИССИЯ ВЫПОЛНЕНА</span>
+          <strong id="reward-text">+10 энергии</strong>
+        </div>
+
+        <div class="floor-line"></div>
       </section>
 
-      <section class="actions" aria-label="Управление программой">
-        <button id="run-button" class="primary-button" type="button">Запустить</button>
-        <button id="reset-button" class="secondary-button" type="button">Сбросить</button>
-        <button id="next-button" class="secondary-button" type="button" disabled>Следующая миссия</button>
+      <section class="control-deck">
+        <div class="deck-header">
+          <div>
+            <p class="eyebrow">КОДОВЫЙ ПУЛЬТ</p>
+            <h2>Собери программу</h2>
+          </div>
+          <button id="toggle-code-button" class="text-button" type="button">Свернуть пульт</button>
+        </div>
+
+        <div id="code-deck-body" class="code-deck-body">
+          <div class="workspace-card" aria-label="Рабочее поле программы">
+            <div id="blocklyDiv"></div>
+          </div>
+
+          <div class="actions" aria-label="Управление программой">
+            <button id="run-button" class="primary-button" type="button">
+              <span class="run-icon">▶</span>
+              Запустить программу
+            </button>
+            <button id="reset-button" class="secondary-button" type="button">Очистить код</button>
+            <button id="next-button" class="secondary-button next-button" type="button" disabled>
+              Продолжить
+            </button>
+          </div>
+        </div>
       </section>
 
-      <section class="result-grid">
-        <article class="panel">
-          <h2>Результат</h2>
-          <pre id="result-output" aria-live="polite">(ещё не запускалось)</pre>
-        </article>
-
-        <article class="panel">
-          <h2>Python</h2>
+      <section id="code-reveal" class="code-reveal">
+        <div class="code-card">
+          <div class="code-card-header">
+            <span>ТВОЙ НАСТОЯЩИЙ PYTHON</span>
+            <small>То, что сейчас сделал твой код</small>
+          </div>
           <pre id="python-output"><code># Соберите программу и нажмите «Запустить»</code></pre>
-        </article>
-      </section>
+        </div>
 
-      <section id="mission-status" class="status-panel neutral" aria-live="polite">
-        Соберите программу и запустите её.
+        <div id="mission-status" class="status-panel neutral" aria-live="polite">
+          База ждёт твою программу.
+        </div>
       </section>
     </main>
 
@@ -51,31 +161,53 @@
       <div class="modal-backdrop" data-close-modal="info"></div>
       <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="info-title">
         <div class="modal-header">
-          <h2 id="info-title">Информация</h2>
+          <div>
+            <p class="eyebrow">СПРАВОЧНИК ИНЖЕНЕРА</p>
+            <h2 id="info-title">Что означают элементы</h2>
+          </div>
           <button class="icon-button" type="button" data-close-modal="info" aria-label="Закрыть">×</button>
         </div>
         <div id="info-content" class="info-grid"></div>
       </section>
     </div>
 
-    <div id="tutorial-modal" class="modal" hidden>
+    <div id="tutorial-modal" class="modal intro-modal" hidden>
       <div class="modal-backdrop"></div>
-      <section class="modal-card tutorial-card" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
-        <div class="tutorial-visual" aria-hidden="true">
-          <span class="mini-block statement">print(</span>
-          <span class="mini-block value">"Привет"</span>
-          <span class="mini-block statement">)</span>
+      <section class="modal-card intro-card" role="dialog" aria-modal="true" aria-labelledby="tutorial-title">
+        <div class="intro-kicker">АВАРИЙНЫЙ ЗАПУСК // БАЗА 01</div>
+        <h2 id="tutorial-title">Фабрика молчит. Ты — первый инженер.</h2>
+        <p class="intro-story">
+          Электричество почти закончилось. Терминал ещё отвечает, робот B-01 спит, линия A остановлена,
+          а сектор 07 заблокирован. Вернуть базу к жизни можно только программой.
+        </p>
+
+        <div class="intro-elements">
+          <article>
+            <div class="intro-block print">print( … )</div>
+            <strong>print()</strong>
+            <span>Показывает значение на терминале.</span>
+          </article>
+          <article>
+            <div class="intro-block str">"Привет"</div>
+            <strong>str</strong>
+            <span>Текст в кавычках.</span>
+          </article>
+          <article>
+            <div class="intro-block int">3</div>
+            <strong>int</strong>
+            <span>Целое число без кавычек.</span>
+          </article>
         </div>
-        <h2 id="tutorial-title">Первые три элемента</h2>
-        <ol class="tutorial-steps">
-          <li><strong>print()</strong> — команда, которая показывает результат.</li>
-          <li><strong>str</strong> — текст. В коде текст записывается в кавычках: <code>"Привет"</code>.</li>
-          <li><strong>int</strong> — целое число. В коде оно записывается без кавычек: <code>3</code>.</li>
-        </ol>
-        <p>Соедините значение с <code>print()</code>, нажмите «Запустить» и смотрите, что получилось. Подсказки всегда доступны через ⓘ.</p>
-        <button id="tutorial-start" class="primary-button" type="button">Понятно, начать</button>
+
+        <p class="intro-note">
+          Не зубри. Сначала заставь базу работать — после победы увидишь настоящий Python, который это описывает.
+        </p>
+
+        <button id="tutorial-start" class="primary-button intro-start" type="button">
+          Войти на фабрику
+        </button>
       </section>
     </div>
-
+
   </body>
 </html>
